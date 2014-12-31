@@ -1,37 +1,37 @@
 //Making a game of Checkers
 //Imports
-import java.io.FileWriter;
-import java.io.FileReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
+* import java.io.FileWriter;
+* import java.io.FileReader;
+* import java.io.BufferedWriter;
+* import java.io.IOException;
 
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
+* import javafx.application.Platform;
+* import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+* import javafx.geometry.Pos;
+* import javafx.scene.Group;
+* import javafx.scene.Scene;
+* import javafx.scene.control.Button;
+* import javafx.scene.control.Label;
+* import javafx.scene.control.TextField;
 import javafx.scene.control.Control;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+* import javafx.scene.control.Menu;
+* import javafx.scene.control.MenuBar;
+* import javafx.scene.control.MenuItem;
 import javafx.scene.control.SkinBase;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
+* import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Translate;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.HBox;
-import javafx.stage.Modality;
+* import javafx.scene.layout.VBox;
+* import javafx.scene.layout.HBox;
+* import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 // class defnition for reversi game
@@ -39,129 +39,129 @@ public class Checkers extends Application {
 	// overridden init method
 	public void init() {
 		
-		 vb_layout = new VBox();
-		 ch_menubar = new MenuBar();
-		 menu_file = new Menu("File");
+*		 vb_layout = new VBox();
+*		 ch_menubar = new MenuBar();
+*		 menu_file = new Menu("File");
 		
-		 hb_layout = new HBox();
-         hb_layout.setSpacing(40.0);
+*		 hb_layout = new HBox();
+*         hb_layout.setSpacing(40.0);
 
 		
-		 tf_playername1 = new TextField();
-		 lbl_playerscore1 = new Label("Player score: ");
+*		 tf_playername1 = new TextField();
+*		 lbl_playerscore1 = new Label("Player score: ");
 		 
-		 lbl_turn = new Label("Playing: ");
+*		 lbl_turn = new Label("Playing: ");
 		
-		 tf_playername2 = new TextField();
-		 lbl_playerscore2 = new Label("Player score: ");
+*		 tf_playername2 = new TextField();
+*		 lbl_playerscore2 = new Label("Player score: ");
 		
-		 btn_draw = new Button("Draw Game");
+*		 btn_draw = new Button("Draw Game");
 		
 		sp_mainlayout = new StackPane();  //Initialise rc_reversi and add it to mainlayout
 		rc_checkers = new CheckersControl();
-		ch_menubar.getMenus().addAll(menu_file);
+*		ch_menubar.getMenus().addAll(menu_file);
 		sp_mainlayout.getChildren().addAll(rc_checkers);
 		
-		hb_layout.getChildren().addAll(tf_playername1, lbl_playerscore1,lbl_turn, tf_playername2, lbl_playerscore2, btn_draw);
-		vb_layout.getChildren().addAll(ch_menubar, hb_layout, sp_mainlayout);
+*		hb_layout.getChildren().addAll(tf_playername1, lbl_playerscore1,lbl_turn, tf_playername2, lbl_playerscore2, btn_draw);
+*		vb_layout.getChildren().addAll(ch_menubar, hb_layout, sp_mainlayout);
 		
-		VBox.setVgrow(sp_mainlayout, Priority.ALWAYS); 
+*		VBox.setVgrow(sp_mainlayout, Priority.ALWAYS); 
 		
-		 mi_new = new MenuItem("New Game");
-		 mi_save = new MenuItem("Save Game");
-		 mi_load = new MenuItem("Load Game");
-		 mi_quit = new MenuItem("Quit Game"); 
-		 menu_file.getItems().addAll(mi_new, mi_save, mi_load, mi_quit);
+*		 mi_new = new MenuItem("New Game");
+*		 mi_save = new MenuItem("Save Game");
+*		 mi_load = new MenuItem("Load Game");
+*		 mi_quit = new MenuItem("Quit Game"); 
+*		 menu_file.getItems().addAll(mi_new, mi_save, mi_load, mi_quit);
 		
-		 mi_new.setOnAction(new EventHandler<ActionEvent>() {
+*		 mi_new.setOnAction(new EventHandler<ActionEvent>() {
 				
 				// overridden method to handle an event for this menu item
-			@Override
-			public void handle(ActionEvent event) {
-				rc_checkers.resetGame();
-				 System.out.println("works reset");
-			}
-		});
+*			@Override
+*			public void handle(ActionEvent event) {
+*				rc_checkers.resetGame();
+*				 System.out.println("works reset");
+*			}
+*		});
 				 
 				
-		mi_save.setOnAction(new EventHandler<ActionEvent>() {
+*		mi_save.setOnAction(new EventHandler<ActionEvent>() {
 				
 				// overridden method to handle an event for this menu item
-			@Override
-			public void handle(ActionEvent event) {
-				rc_checkers.saveGame();
-			}
-		});
+*			@Override
+*			public void handle(ActionEvent event) {
+*				rc_checkers.saveGame();
+*			}
+*		});
 				 
 				
-		mi_load.setOnAction(new EventHandler<ActionEvent>() {
+*		mi_load.setOnAction(new EventHandler<ActionEvent>() {
 				
 			// overridden method to handle an event for this menu item
-			@Override
-			public void handle(ActionEvent event) {
-				rc_checkers.loadGame();
-			}
-		});
+*			@Override
+*			public void handle(ActionEvent event) {
+*				rc_checkers.loadGame();
+*			}
+*		});
 				 
 				
-		 mi_quit.setOnAction(new EventHandler<ActionEvent>() {
+*		 mi_quit.setOnAction(new EventHandler<ActionEvent>() {
 				
 			// overridden method to handle an event for this menu item
-			@Override
-			public void handle(ActionEvent event) {
-				 stop();
-				 Platform.exit();
-			}
-		});
+*			@Override
+*			public void handle(ActionEvent event) {
+*				 stop();
+*				 Platform.exit();
+*			}
+*		});
 
 
-		btn_draw.setOnAction(new EventHandler<ActionEvent>() {
+*		btn_draw.setOnAction(new EventHandler<ActionEvent>() {
 
 		// overridden method to handle an event for this menu item
-		@Override
-		public void handle(ActionEvent event) {
+*		@Override
+*		public void handle(ActionEvent event) {
 		
-		                final Stage dialogStage = new Stage();
-		                dialogStage.initModality(Modality.APPLICATION_MODAL);
-		                dialogStage.setTitle("Draw Game?");
+*		                final Stage dialogStage = new Stage();
+*		                dialogStage.initModality(Modality.APPLICATION_MODAL);
+*		                dialogStage.setTitle("Draw Game?");
 
-		                Label drawLabel = new Label("Do both Players agree to draw the game?");
-		                drawLabel.setAlignment(Pos.BASELINE_CENTER);
+*		                Label drawLabel = new Label("Do both Players agree to draw the game?");
+*		                drawLabel.setAlignment(Pos.BASELINE_CENTER);
 
-		                Button yesBtn = new Button("Yes");
-		                yesBtn.setOnAction(new EventHandler<ActionEvent>() {
+*		                Button yesBtn = new Button("Yes");
+*		                yesBtn.setOnAction(new EventHandler<ActionEvent>() {
 
-		                    @Override
-		                    public void handle(ActionEvent arg0) {
+*		                    @Override
+*		                    public void handle(ActionEvent arg0) {
 		                        
-		                    	stop();
-		                        dialogStage.close();
-		                    }
-		                });
-		                Button noBtn = new Button("No");
+*		                    	stop();
+*		                        dialogStage.close();
+*		                    }
+*		                });
+*		                Button noBtn = new Button("No");
 
-		                noBtn.setOnAction(new EventHandler<ActionEvent>() {
+*		                noBtn.setOnAction(new EventHandler<ActionEvent>() {
 
-		                    @Override
-		                    public void handle(ActionEvent arg0) {
-		                        dialogStage.close();
+*		                    @Override
+*		                    public void handle(ActionEvent arg0) {
+*		                        dialogStage.close();
 
-		                    }
-		                });
+*		                    }
+*		                });
 			
-		                HBox hBox = new HBox();
-		                hBox.setAlignment(Pos.BASELINE_CENTER);
-		                hBox.setSpacing(40.0);
-		                hBox.getChildren().addAll(yesBtn, noBtn);
+*		                HBox hBox = new HBox();
+*		                hBox.setAlignment(Pos.BASELINE_CENTER);
+*		                hBox.setSpacing(40.0);
+*		                hBox.getChildren().addAll(yesBtn, noBtn);
 
-		                VBox vBox = new VBox();
-		                vBox.setSpacing(40.0);
-		                vBox.getChildren().addAll(drawLabel, hBox);
+*		                VBox vBox = new VBox();
+*		                vBox.setSpacing(40.0);
+*		                vBox.getChildren().addAll(drawLabel, hBox);
 
-		                dialogStage.setScene(new Scene(vBox));
-		                dialogStage.show();
-		}
-		});
+*		                dialogStage.setScene(new Scene(vBox));
+*		                dialogStage.show();
+*		}
+*		});
 		
 		
 			
@@ -171,7 +171,7 @@ public class Checkers extends Application {
 	public void start(Stage primaryStage) {
 		//Set title and scene
 	primaryStage.setTitle("Checkers");
-		primaryStage.setScene(new Scene(vb_layout, 800, 800));
+*		primaryStage.setScene(new Scene(vb_layout, 800, 800));
 
 		primaryStage.show();
 	}
@@ -189,32 +189,32 @@ public class Checkers extends Application {
 
 	// private fields for a stack pane and a checkers control
 	private StackPane sp_mainlayout;
-	private CheckersControl rc_checkers;
-	private VBox vb_layout;
-	private HBox hb_layout;
-	private TextField tf_playername1, tf_playername2;
-	private Label lbl_turn, lbl_playerscore1, lbl_playerscore2;
-	private Button btn_draw;
+*	private CheckersControl rc_checkers;
+*	private VBox vb_layout;
+*	private HBox hb_layout;
+*	private TextField tf_playername1, tf_playername2;
+*	private Label lbl_turn, lbl_playerscore1, lbl_playerscore2;
+*	private Button btn_draw;
 	
-	private MenuBar ch_menubar;
-	private Menu menu_file;
-	private MenuItem mi_new, mi_save, mi_load, mi_quit;
+*	private MenuBar ch_menubar;
+*	private Menu menu_file;
+*	private MenuItem mi_new, mi_save, mi_load, mi_quit;
 }
 
 // class definition for a custom checkers control
 class CheckersControl extends Control {
 	// constructor for the class
-	public void resetGame(){
-		c_board.resetGame();
-	}
+*	public void resetGame(){
+*		c_board.resetGame();
+*	}
 	
-	public void loadGame(){
-		c_board.loadGame();
-	}
+*	public void loadGame(){
+*		c_board.loadGame();
+*	}
 
-	public void saveGame(){
-		c_board.saveGame();
-	}
+*	public void saveGame(){
+*		c_board.saveGame();
+*	}
 	
 	public CheckersControl() {
 		setSkin(new CheckersControlSkin(this));
@@ -339,51 +339,51 @@ class CheckersBoard extends Pane {
 				pieceResizeRelocate();
 
 	}
-	public void loadGame(){
+*	public void loadGame(){
 		
-		try{
+*		try{
 
-		//	 FileReader h = new FileReader();
+*		//	 FileReader h = new FileReader();
 			
-			   	 System.out.println("loading...");			
+*			   	 System.out.println("loading...");			
 				
-			}
+*			}
 			
-			catch(Exception e){
-				System.err.println("Error: load failed " + e.getMessage());
-			}
+*			catch(Exception e){
+*				System.err.println("Error: load failed " + e.getMessage());
+*			}
 		
-	}
-	public void saveGame(){
+*	}
+*	public void saveGame(){
 
-		// to view file open with notepad.
+*		// to view file open with notepad++.
 		
-		try{
+*		try{
 		
-		FileWriter saveFile = new FileWriter("Checkers.txt");
-		BufferedWriter out; //= new BufferedWriter(saveFile);
-			out = new BufferedWriter(saveFile);
-			out.write("hello");
-			for(int i = 0; i < render.length ; i++){
-				 for(int j = 0 ; j < render.length; j ++){
+*		FileWriter saveFile = new FileWriter("Checkers.txt");
+*		BufferedWriter out; //= new BufferedWriter(saveFile);
+*			out = new BufferedWriter(saveFile);
+*			out.write("hello");
+*			for(int i = 0; i < render.length ; i++){
+*				 for(int j = 0 ; j < render.length; j ++){
 			
-		      out.write(" co-ords: " + i + " " +j + " "+getPiece(i,j) + " ");
-		 }
-		 }
+*		      out.write(" co-ords: " + i + " " +j + " "+getPiece(i,j) + " ");
+*		 }
+*		 }
 			 
-			 out.write(" scores: " + player1_score + " "+ player2_score + " ");
-		   	 out.flush();
-		   	 System.out.println("saving...");
-			 out.close();
+*			 out.write(" scores: " + player1_score + " "+ player2_score + " ");
+*		   	 out.flush();
+*		   	 System.out.println("saving...");
+*			 out.close();
 		
 			
-		}
+*		}
 		
-		catch(Exception e){
-			System.err.println("Error: saved failed " + e.getMessage());
-		}
+*		catch(Exception e){
+*			System.err.println("Error: saved failed " + e.getMessage());
+*		}
 		
-	}
+*	}
 
 	
 	// public method for resetting the game

@@ -742,26 +742,26 @@ class CheckersBoard extends Pane {
 	  }
 	}
 	// private method that will determine if the end of the game has been reached
-	private void determineEndGame() {
+*	private void determineEndGame() {
 		// if the board has been filled or either player has lost their pieces then
 		// we have reached the end of the game
-		if(player1_score + player2_score == 24 || player1_score == 0 || player2_score == 0) {
-			determineWinner();
-		}
+*		if(player1_score + player2_score == 24 || player1_score == 0 || player2_score == 0) {
+*			determineWinner();
+*		}
 		
 		// see if the current player can make a move if not see if the opposing player can make a move
 		// if neither can make a move then we have reached end game
-		if(canMove()) {
-			return;
-		} else {
-			swapPlayers();
-			if(!canMove())
-				determineWinner();
-		}
+*		if(canMove()) {
+*			return;
+*		} else {
+*			swapPlayers();
+*			if(!canMove())
+*				determineWinner();
+*		}
 			
 		
 		
-	}
+*	}
 	
 	// private method to determine if a player has a move available
 /*	private boolean canMove() {

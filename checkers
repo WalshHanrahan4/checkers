@@ -1,5 +1,7 @@
 //Making a game of Checkers
 //Imports
+
+//Fiona Walsh 2844174 and Tendai Muzwidzwa 2833471
 import java.io.FileWriter;
 import java.io.File;
 import java.io.BufferedWriter;
@@ -46,12 +48,12 @@ public class Checkers extends Application {
          hb_layout.setSpacing(35.0);
 
 		
-		 tf_playername1 = new Label("");
+		 tf_playername1 = new Label("P2: ");
 		 lbl_playerscore1 = new Label("Player score: ");
 		 
 		 lbl_turn = new Label("Playing: ");
 		
-		 tf_playername2 = new Label("");
+		 tf_playername2 = new Label("P1: ");
 		 lbl_playerscore2 = new Label("Player score: ");
 		
 		 btn_draw = new Button("Draw Game");
@@ -79,6 +81,9 @@ public class Checkers extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				rc_checkers.resetGame();
+				 tf_playername2.setText("P1: ");
+				 tf_playername1.setText("P2: ");
+
 				 System.out.println("works reset");
 			}
 		});
@@ -218,15 +223,7 @@ public class Checkers extends Application {
 	                
 	}
 	});
-			
 	
-	//	System.out.println("placed at: " + x2 + ", " + y2);
-	//	System.out.println("RED: " + player2_score + " WHITE: " + player1_score);
-	//	if(current_player == 1)
-	//		System.out.println("current player is White");
-	//	else
-	//		System.out.println("current player is Red");
-//	}
 		if(rc_checkers.in_play() == true){
 		//	rc_checkers.updateScores();
 			lbl_playerscore1.setText("Player Score: " +  rc_checkers.score1());
@@ -234,10 +231,10 @@ public class Checkers extends Application {
 		
 		
 		if(rc_checkers.current_player() == 2){
-				lbl_turn.setText("Playing: Red " + tf_playername2.getText());
+				lbl_turn.setText("Playing: "+ tf_playername2.getText()+ " Red");
 			}
-			else{
-				lbl_turn.setText("Playing: White " + tf_playername1.getText());
+			else if(rc_checkers.current_player() == 1) {
+				lbl_turn.setText("Playing: "+ tf_playername1.getText()+ " White");
 			}
 		}
 	}
@@ -295,9 +292,6 @@ class CheckersControl extends Control {
 	}
 	public int score2() {
 		return	c_board.score2();
-	}
-	public void updateScores(){
-		c_board.updateScores();
 	}
 	public void resetGame(){
 		c_board.resetGame();
@@ -429,54 +423,53 @@ class CheckersBoard extends Pane {
 		
 		System.out.println("loading...");	
 		
-		
-		int x = 0;
-        int y = 1;
-        int player = 2;
-        int size = 0;
-        int i = 0;
-        char x1;
-        char y1;
-        char player1;
+			int x = 0;
+        		int y = 1;
+        		int player = 2;
+        		int size = 0;
+        		int i = 0;
+        		char x1;
+        		char y1;
+	 		char player1;
              
-        try{
+        	try{
                 
-                String content = new Scanner( new File("Checkers.txt"), "UTF-8" ).useDelimiter("\\A").next();
-                size = content.length();
-                resetRenders();
-                System.out.print(content);
-                while (i <= 72)
-                        {
+                	String content = new Scanner( new File("Checkers.txt"), "UTF-8" ).useDelimiter("\\A").next();
+                	size = content.length();
+                	resetRenders();
+                	System.out.print(content);
+                	while (i <= 72){
+                           
                             x1 = content.charAt(x);
                             y1 = content.charAt(y);
+                           
                             player1 = content.charAt(player);
+                           
                             int x2 = Character.getNumericValue(x1);
                             int y2 = Character.getNumericValue(y1);
                             int player2 = Character.getNumericValue(player1);
+                           
                             render[x2][y2].setPiece(player2);
                             x = x+3;
                             y = y+3;
                             player = player+3;
                             i = i+3;
                         }
-                x= 1;
-                y=2;
-                player = 3;
+        		x = 1;
+        		y = 2;
+        		player = 3;
                   
-        in_play = true;	
-current_player = 2;
-opposing = 1;
-player1_score = 0;
-player2_score = 0;
+        	in_play = true;	
+		current_player = 2;
+		opposing = 1;
+		player1_score = 0;
+		player2_score = 0;
+        
         }
         catch(Exception e){
-	System.err.println("Error: load failed " + e.getMessage());
-}
-}
-
-		
-	
-
+		System.err.println("Error: load failed " + e.getMessage());
+	}
+	}
 	public void saveGame(){
 
 		try{
@@ -612,7 +605,7 @@ player2_score = 0;
 	}
 	
 	// private method for updating the player scores
-	public void updateScores() {
+	private void updateScores() {
 		
 		player1_score = 0;
 		player2_score = 0;

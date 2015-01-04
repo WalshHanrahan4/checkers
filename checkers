@@ -2,6 +2,8 @@
 //Imports
 
 //Fiona Walsh 2844174 and Tendai Muzwidzwa 2833471
+
+// imports for saving and loading the game
 import java.io.FileWriter;
 import java.io.File;
 import java.io.BufferedWriter;
@@ -44,12 +46,13 @@ public class Checkers extends Application {
 	// overridden init method
 	public void init() {
 		
+		// menu bar and display set up
 		 vb_layout = new VBox();
 		 ch_menubar = new MenuBar();
 		 menu_file = new Menu("File");
 		
 		 hb_layout = new HBox();
-         hb_layout.setSpacing(35.0);
+        	 hb_layout.setSpacing(35.0);
 
 		
 		 lbl_playername1 = new Label("P2: ");
@@ -81,7 +84,7 @@ public class Checkers extends Application {
 		
 		 mi_new.setOnAction(new EventHandler<ActionEvent>() {
 				
-				// overridden method to handle an event for this menu item
+		// overridden method to handle an event for this menu item
 			@Override
 			public void handle(ActionEvent event) {
 				rc_checkers.resetGame();
@@ -130,6 +133,7 @@ public class Checkers extends Application {
 		@Override
 		public void handle(ActionEvent event) {
 		
+			// pop up code for drawing the game
 		                final Stage dialogStage = new Stage();
 		                dialogStage.initModality(Modality.APPLICATION_MODAL);
 		                dialogStage.setTitle("Draw Game?");
@@ -146,6 +150,7 @@ public class Checkers extends Application {
 		                    stop();
 		                        dialogStage.close();
 		                        
+		                    	// pop code to let the player know the games ended in a draw
 		                    	
 		                    	final Stage dialogStage = new Stage();
 				                dialogStage.initModality(Modality.APPLICATION_MODAL);
@@ -197,8 +202,10 @@ public class Checkers extends Application {
 		btn_click.setOnAction(new EventHandler <ActionEvent> (){
 			@Override
 			public void handle (ActionEvent event){
+			
+			// pop up cade to enter players names.
 				
-				 final Stage dialogStage = new Stage();
+			 final Stage dialogStage = new Stage();
 	                dialogStage.initModality(Modality.APPLICATION_MODAL);
 	                dialogStage.setTitle("Player Names");
 
@@ -423,10 +430,12 @@ class CheckersBoard extends Pane {
 	}
 public void loadGame(){
 		
+		// code for loading the file into the game
+		
 		System.out.println("loading...");	
 		
 		
-		int x = 0;
+	int x = 0;
         int y = 1;
         int player = 2;
         int size = 0;
@@ -505,7 +514,7 @@ public void loadGame(){
 
 }
 	public void saveGame(){
-
+			// code for saving the positions of the pieces and scores of the players.
 		try{
             
 		int zero = 0;
@@ -975,8 +984,9 @@ Checkers.lbl_playerscore2.setText("Player Score: " +  Checkers.rc_checkers.score
 	
 	// private method that determines who has won the game
 	private void determineWinner() {
-			if(player1_score > player2_score){
+			if(player1_score > player2_score){	
 			
+		// pop code to let the player know the games ended in a in player one winning
 		final Stage dialogStage = new Stage();
                 dialogStage.initModality(Modality.APPLICATION_MODAL);
                 dialogStage.setTitle("Checkers");
@@ -1000,7 +1010,8 @@ Checkers.lbl_playerscore2.setText("Player Score: " +  Checkers.rc_checkers.score
 				System.out.println("Game has ended");
 			}
 			else if (player1_score < player2_score){
-			
+					// pop code to let the player know the games ended in a in player two winning
+
 		final Stage dialogStage = new Stage();
                 dialogStage.initModality(Modality.APPLICATION_MODAL);
                 dialogStage.setTitle("Checkers");

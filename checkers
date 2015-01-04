@@ -2,11 +2,8 @@
 //Imports
 import java.io.FileWriter;
 import java.io.File;
-import java.io.FileReader;
 import java.io.BufferedWriter;
-import java.io.BufferedReader;
-import java.io.IOException;
-
+import java.util.Scanner;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -46,25 +43,26 @@ public class Checkers extends Application {
 		 menu_file = new Menu("File");
 		
 		 hb_layout = new HBox();
-         hb_layout.setSpacing(40.0);
+         hb_layout.setSpacing(35.0);
 
 		
-		 tf_playername1 = new TextField();
+		 tf_playername1 = new Label("");
 		 lbl_playerscore1 = new Label("Player score: ");
 		 
 		 lbl_turn = new Label("Playing: ");
 		
-		 tf_playername2 = new TextField();
+		 tf_playername2 = new Label("");
 		 lbl_playerscore2 = new Label("Player score: ");
 		
 		 btn_draw = new Button("Draw Game");
+		 btn_click = new Button("Enter Names");
 		
 		sp_mainlayout = new StackPane();  //Initialise rc_reversi and add it to mainlayout
 		rc_checkers = new CheckersControl();
 		ch_menubar.getMenus().addAll(menu_file);
 		sp_mainlayout.getChildren().addAll(rc_checkers);
 		
-		hb_layout.getChildren().addAll(tf_playername1, lbl_playerscore1,lbl_turn, tf_playername2, lbl_playerscore2, btn_draw);
+		hb_layout.getChildren().addAll(tf_playername2, lbl_playerscore2,lbl_turn, tf_playername1, lbl_playerscore1, btn_draw, btn_click);
 		vb_layout.getChildren().addAll(ch_menubar, hb_layout, sp_mainlayout);
 		
 		VBox.setVgrow(sp_mainlayout, Priority.ALWAYS); 
@@ -138,6 +136,8 @@ public class Checkers extends Application {
 		                        
 		                    	stop();
 		                        dialogStage.close();
+				                System.out.println("Game has ended in a draw");
+
 		                    }
 		                });
 		                Button noBtn = new Button("No");
@@ -162,22 +162,86 @@ public class Checkers extends Application {
 
 		                dialogStage.setScene(new Scene(vBox));
 		                dialogStage.show();
+		                
 		}
 		});
+	
+		btn_click.setOnAction(new EventHandler <ActionEvent> (){
+			@Override
+			public void handle (ActionEvent event){
+				
+				 final Stage dialogStage = new Stage();
+	                dialogStage.initModality(Modality.APPLICATION_MODAL);
+	                dialogStage.setTitle("Player Names");
+
+	                Label drawLabel = new Label("PLayer 1 Enter your Name:		Player 2 Enter your Name: ");
+	                drawLabel.setAlignment(Pos.BASELINE_CENTER);
+
+	                Label p1 = new Label("Player 1 : ");
+	                p1.setAlignment(Pos.CENTER_LEFT);
+	                TextField yesBtn = new TextField();
+	                yesBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+	                    @Override
+	                    public void handle(ActionEvent arg0) {
+	                        
+	                    	 tf_playername2.setText("P1: " + yesBtn.getText());
+
+	                    }
+	                });
+	                Label p2 = new Label("Player 2 : ");
+	                p2.setAlignment(Pos.CENTER_RIGHT);
+	                TextField noBtn = new TextField();
+
+	                noBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+	                    @Override
+	                    public void handle(ActionEvent arg0) {
+	                    	tf_playername1.setText("P2: " + noBtn.getText());
+	                    	
+	                    	dialogStage.close();
+	                    }
+	                });
+	               
 		
-		
-		if(rc_checkers.in_play() == true){
-			lbl_playerscore1.setText("Player Score: " + rc_checkers.score1());
-			lbl_playerscore2.setText("Player Score: " + rc_checkers.score2());
-		
-			if(rc_checkers.current_player() == 1){
-				lbl_turn.setText("Playing: " + tf_playername1.getText());
-			}
-			else if(rc_checkers.current_player() == 2){
-				lbl_turn.setText("Playing: " + tf_playername2.getText());
-			}
-		}	
+	                HBox hBox = new HBox();
+	                hBox.setAlignment(Pos.BOTTOM_CENTER);
+	                hBox.setSpacing(40.0);
+	                hBox.getChildren().addAll(yesBtn, noBtn);
+
+	                VBox vBox = new VBox();
+	                vBox.setSpacing(40.0);
+	                vBox.getChildren().addAll(drawLabel, hBox);
+
+	                dialogStage.setScene(new Scene(vBox));
+	                dialogStage.show();
+	                
 	}
+	});
+			
+	
+	//	System.out.println("placed at: " + x2 + ", " + y2);
+	//	System.out.println("RED: " + player2_score + " WHITE: " + player1_score);
+	//	if(current_player == 1)
+	//		System.out.println("current player is White");
+	//	else
+	//		System.out.println("current player is Red");
+//	}
+		if(rc_checkers.in_play() == true){
+		//	rc_checkers.updateScores();
+			lbl_playerscore1.setText("Player Score: " +  rc_checkers.score1());
+			lbl_playerscore2.setText("Player Score: " +  rc_checkers.score2());
+		
+		
+		if(rc_checkers.current_player() == 2){
+				lbl_turn.setText("Playing: Red " + tf_playername2.getText());
+			}
+			else{
+				lbl_turn.setText("Playing: White " + tf_playername1.getText());
+			}
+		}
+	}
+	
 	
 	// overridden start method
 	public void start(Stage primaryStage) {
@@ -197,6 +261,8 @@ public class Checkers extends Application {
 	public static void main(String[] args) {
 		launch(args);
 
+		
+		
 	}
 
 	// private fields for a stack pane and a checkers control
@@ -204,9 +270,9 @@ public class Checkers extends Application {
 	private CheckersControl rc_checkers;
 	private VBox vb_layout;
 	private HBox hb_layout;
-	private TextField tf_playername1, tf_playername2;
-	private Label lbl_turn, lbl_playerscore1, lbl_playerscore2;
-	private Button btn_draw;
+	//private TextField ;
+	private Label lbl_turn, lbl_playerscore1, lbl_playerscore2, tf_playername1, tf_playername2;
+	private Button btn_draw, btn_click;
 	
 	private MenuBar ch_menubar;
 	private Menu menu_file;
@@ -229,6 +295,9 @@ class CheckersControl extends Control {
 	}
 	public int score2() {
 		return	c_board.score2();
+	}
+	public void updateScores(){
+		c_board.updateScores();
 	}
 	public void resetGame(){
 		c_board.resetGame();
@@ -360,96 +429,81 @@ class CheckersBoard extends Pane {
 		
 		System.out.println("loading...");	
 		
-		try{  //Reading through character
-			        FileReader h = new FileReader("Checkers.txt");
-			        int character = h.read();
-			        while (character != -1){
-		         //   System.out.println(character);
-			            character = h.read();
-			        }
-		 
-			        //Close the stream
-			    //    .close(); 
-			        
-		}
-		catch(Exception e){
-			System.err.println("Error: load failed " + e.getMessage());
-		}
-		System.out.println("Game Loaded");
-		//- See more at: http://www.javabeat.net/java-filereader/#sthash.gbNOjCuh.dpuf
-		//	 
-			
-		/*	 
-			   	StringBuilder contents = new StringBuilder();
-			    String line = null;
-		      try {
-		    	  FileReader h = new FileReader("Checkers.txt");
-		    	  BufferedReader input =  new BufferedReader(h);
-		        	
-		             while (line != null){
-		             
-		            	 line = input.readLine();
-		            	 contents.append(line).append(" ");
-		            	 //  input.readLine())  contents.append(line);
-		              //  contents.append();
-		              }
-		         
-		      //   finally {
-		       //      input.close();
-		       //  }
-		      //}
-		    //  catch (IOException ex){
-		    //    ex.printStackTrace();
-		    //  }
-		    //  System.out.println(contents.toString()); 
-			   	 
-		     	
-		}
-			
-			catch(Exception e){
-				System.err.println("Error: load failed " + e.getMessage());
-			}
-		return contents; */
 		
+		int x = 0;
+        int y = 1;
+        int player = 2;
+        int size = 0;
+        int i = 0;
+        char x1;
+        char y1;
+        char player1;
+             
+        try{
+                
+                String content = new Scanner( new File("Checkers.txt"), "UTF-8" ).useDelimiter("\\A").next();
+                size = content.length();
+                resetRenders();
+                System.out.print(content);
+                while (i <= 72)
+                        {
+                            x1 = content.charAt(x);
+                            y1 = content.charAt(y);
+                            player1 = content.charAt(player);
+                            int x2 = Character.getNumericValue(x1);
+                            int y2 = Character.getNumericValue(y1);
+                            int player2 = Character.getNumericValue(player1);
+                            render[x2][y2].setPiece(player2);
+                            x = x+3;
+                            y = y+3;
+                            player = player+3;
+                            i = i+3;
+                        }
+                x= 1;
+                y=2;
+                player = 3;
+                  
+        in_play = true;	
+current_player = 2;
+opposing = 1;
+player1_score = 0;
+player2_score = 0;
+        }
+        catch(Exception e){
+	System.err.println("Error: load failed " + e.getMessage());
+}
+}
+
 		
-	}
+	
+
 	public void saveGame(){
 
-		// to view file open with notepad.
-		
 		try{
-/*		 FileWriter fileWriter = new FileWriter(new File("c:/abc.txt"));
-		    fileWriter.append("java2s.com");
-		    fileWriter.close();
-	*/	FileWriter saveFile = new FileWriter("Checkers.txt");
+            
+		int zero = 0;
+		FileWriter saveFile = new FileWriter("Checkers.txt");
 		BufferedWriter out; //= new BufferedWriter(saveFile);
-			out = new BufferedWriter(saveFile);
-		//	out.append();
-			
-			
-			out.write("hello");
-			for(int i = 0; i < render.length ; i++){
-				 for(int j = 0 ; j < render.length; j ++){
-			
-		      out.write(" co-ords: " + i + " " +j + " "+ "Player: " +getPiece(i,j) + " ");
-		 }
-		 }
-			 
-			 out.write(" scores: " + "Red: " + player1_score + " "+" White: " + player2_score + " ");
-		   	 out.flush();
-		   	 System.out.println("Saving...");
-			 out.close();
-		   	 System.out.println("Game Saved");
+		out = new BufferedWriter(saveFile);
 
-			
-		}
-		
+		for(int x = 0; x < render.length ; x++){
+			 for(int j = 0 ; j < render.length; j ++){
+                  if(getPiece(x,j) == zero)
+                 {                                        
+                 }
+                 else{                                     
+                    out.write(x +""+j+""+getPiece(x,j)+"");
+                    }
+             }
+          }
+          System.out.println("Saving...");
+          out.close();
+          System.out.println("Game Saved");
+            }
+	
 		catch(Exception e){
 			System.err.println("Error: saved failed " + e.getMessage());
 		}
-		
-		
-		 
 	}
 
 	
@@ -494,8 +548,8 @@ class CheckersBoard extends Pane {
 		in_play = true;	
 		current_player = 2;
 		opposing = 1;
-		player1_score = 0;
-		player2_score = 0;
+		player1_score = 12;
+		player2_score = 12;
 	//	updateScores();
 		
 		
@@ -558,13 +612,22 @@ class CheckersBoard extends Pane {
 	}
 	
 	// private method for updating the player scores
-	private void updateScores() {
+	public void updateScores() {
 		
 		player1_score = 0;
 		player2_score = 0;
 		
 		for(int i = 0; i < 8; i++) {
 			for(int j = 0; j < 8; j++) {
+			//	if(current_player() == 1){
+			//		makeJump();
+			//		player1_score ++;
+			//	}
+			//	else if(current_player() == 2){
+			//		makeJump();
+			//		player2_score ++;
+				
+				
 				if(render[i][j].getPiece() == 1){
 					player1_score ++;
 				}
@@ -573,8 +636,10 @@ class CheckersBoard extends Pane {
 				}	
 			}
 		}
-
+		
+		
 	}
+	
 	
 	// private method for resizing and relocating all the pieces
 	private void pieceResizeRelocate() {
@@ -641,7 +706,10 @@ class CheckersBoard extends Pane {
 								}
 					 	}
 			}
-			}
+			
+		}
+			
+			
 	//	Method to tryJump 
 			public void tryJump(double X1, double X2,double Y1,double Y2){
 				// get a new cell width and cell height
@@ -691,16 +759,20 @@ class CheckersBoard extends Pane {
 											out_of_play = true;
 										}
 									}
+			
 								}
-	}
+				
+			
+			}
+			
 			/* 
-			+	   The logic of this method: this method will determine if a jump is possible on the board. If one is possible it
-			+	   will return the square _to which_ a jump is possible. Attempt jump will lock you into selecting one of these squares
-			+	   
-			+	  */
+				   The logic of this method: this method will determine if a jump is possible on the board. If one is possible it
+				   will return the square _to which_ a jump is possible. Attempt jump will lock you into selecting one of these squares
+				   
+				  */
 	public boolean makeJump() {
 					
-	updateScores();
+//	updateScores();
 					
 	boolean found = false;
 		for(int i = 0; i < 8; i++) {
@@ -803,7 +875,18 @@ class CheckersBoard extends Pane {
 		if(player1_score + player2_score == 24 || player1_score == 0 || player2_score == 0) {
 			determineWinner();
 		}
-		
+		else if(player1_score == player2_score){
+			
+			if(makeJump()) {
+				return;
+			} else {
+				swapPlayers();
+				if(!makeJump())
+					determineWinner();
+			
+			}	
+			
+		}
 		// see if the current player can make a move if not see if the opposing player can make a move
 		// if neither can make a move then we have reached end game
 		if(makeJump()) {
@@ -845,9 +928,12 @@ class CheckersBoard extends Pane {
 				System.out.println("Player 1 wins");
 				System.out.println("Game has ended");
 			}
-			else{
+			else if (player1_score < player2_score){
 				System.out.println("Player 2 wins");
- 			System.out.println("Game has ended");
+				System.out.println("Game has ended");
+			}
+			else{
+				System.out.println("Game has ended in a draw");
 			}
 	}
 

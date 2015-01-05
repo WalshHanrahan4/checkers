@@ -248,7 +248,7 @@ public class Checkers extends Application {
 
 	                VBox vBox = new VBox();
 	                vBox.setSpacing(25.0);
-	                vBox.getChildren().addAll(drawLabel, hBox);
+	                vBox.getChildren().addAll(namelabel, enterlabel, hBox);
 
 	                dialogStage.setScene(new Scene(vBox));
 	                dialogStage.show();

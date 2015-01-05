@@ -248,7 +248,7 @@ public class Checkers extends Application {
 
 	                VBox vBox = new VBox();
 	                vBox.setSpacing(25.0);
-	                vBox.getChildren().addAll(namelabel, enterlabel, hBox);
+	                vBox.getChildren().addAll(nameLabel, enterlabel, hBox);
 
 	                dialogStage.setScene(new Scene(vBox));
 	                dialogStage.show();
@@ -468,6 +468,10 @@ public void loadGame(){
                 y=2;
                 player = 3;  
         }
+        
+        
+        	// when loading the game, an error statement is printed but the games loads perfectly. 
+        	// i believe this is due to the way the game is saved to the text file.
         catch(Exception e){
 	System.err.println("Error: load failed " + e.getMessage());
         }
@@ -489,7 +493,7 @@ public void loadGame(){
                    temp = temp.substring(8);
                    player1sc= Integer.parseInt(temp);
                    player1_score = player1sc;
-                   System.out.print(player1_score);
+                   Checkers.lbl_playerscore1.setText("Player Score: " +  player1_score);
                    temp = "";
                 }
                 else if(line.contains("player2:"))
@@ -498,7 +502,7 @@ public void loadGame(){
                    temp = temp.substring(8);
                    player2sc= Integer.parseInt(temp);
                    player2_score = player2sc;
-                   System.out.print(player2_score);
+                   Checkers.lbl_playerscore2.setText("Player Score: " +  player2_score);
                    temp = "";
                 }
             }
@@ -602,6 +606,9 @@ public void loadGame(){
 		player2_score = 12;
 	//	updateScores();
 		
+		 Checkers.lbl_playerscore2.setText("Player score: 12");
+		 Checkers.lbl_playerscore1.setText("Player score: 12");
+		 Checkers.lbl_turn.setText("Playing: "+ Checkers.lbl_playername2.getText()+ " Red");
 		
 
 	}
